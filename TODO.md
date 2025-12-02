@@ -1,11 +1,11 @@
 # TODO - Argus Development Tasks
 
-## 🎯 CURRENT PRIORITY: Phase 4 - Diffing & Comparison Engine
+## 🎯 CURRENT PRIORITY: Phase 5 - Explorer Mode
 
 ### Project Status
-- **Phase:** 4 of 7 (Diffing & Comparison)
-- **Progress:** Phases 1-3 Complete ✅
-- **Tests:** 41 passing
+- **Phase:** 5 of 7 (Explorer Mode)
+- **Progress:** Phases 1-4 Complete ✅
+- **Tests:** 55 passing
 - **PRD:** ✅ Complete
 
 ---
@@ -54,22 +54,21 @@
 
 ---
 
-## Phase 4: Diffing & Comparison Engine ⬅️ CURRENT
-**Estimated Time:** 5-8 hours
+## Phase 4: Diffing & Comparison Engine ✅ COMPLETE
+**Completed:** December 2, 2025
 
-- [ ] 1. Integrate pixelmatch for visual diffing
-- [ ] 2. Implement threshold-based comparison
-- [ ] 3. Add DOM/CSS diffing (optional layer)
-- [ ] 4. Create diff image generation
-- [ ] 5. Implement `argus compare` command
-- [ ] 6. Implement `argus approve` command
-- [ ] 7. Write tests for diffing logic
+- [x] 1. Integrate pixelmatch for visual diffing
+- [x] 2. Implement threshold-based comparison
+- [x] 3. Create diff image generation
+- [x] 4. Implement `argus compare` command
+- [x] 5. Implement `argus approve` command
+- [x] 6. Write tests for diffing logic
 
-**Goal:** Compare current vs baseline and generate diff images
+**Result:** Compare current vs baseline and generate diff images ✅
 
 ---
 
-## Phase 5: Explorer Mode (0%)
+## Phase 5: Explorer Mode ⬅️ CURRENT
 **Estimated Time:** 4-6 hours
 
 - [ ] 1. Implement link crawler/scraper

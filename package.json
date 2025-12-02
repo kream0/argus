@@ -43,6 +43,7 @@
     },
     "devDependencies": {
         "@types/bun": "latest",
+        "@types/pixelmatch": "^5.2.6",
         "@types/pngjs": "^6.0.5",
         "@typescript-eslint/eslint-plugin": "^8.16.0",
         "@typescript-eslint/parser": "^8.16.0",
