@@ -21,6 +21,6 @@ export type {
   TypeAction,
   Viewport,
   WaitAction,
-} from './config.js';
+} from './config.ts';
 
-export { DEFAULT_CONFIG, defineConfig } from './config.js';
+export { DEFAULT_CONFIG, defineConfig } from './config.ts';

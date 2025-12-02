@@ -2,9 +2,9 @@
  * Configuration types tests
  */
 
-import { describe, it, expect } from 'vitest';
-import { defineConfig, DEFAULT_CONFIG } from './config.js';
-import type { ArgusConfig, Viewport } from './config.js';
+import { describe, it, expect } from 'bun:test';
+import { defineConfig, DEFAULT_CONFIG } from './config.ts';
+import type { ArgusConfig, Viewport } from './config.ts';
 
 describe('defineConfig', () => {
   it('should return the same configuration object', () => {

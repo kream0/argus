@@ -10,11 +10,11 @@ Argus detects visual (pixel-accurate) and structural (DOM/CSS) changes across we
 - **Hybrid Diffing:** Pixel + DOM comparison
 
 ## Tech Stack
-- **Runtime:** Node.js with TypeScript (strict mode)
+- **Runtime:** Bun (runtime, package manager, bundler, test runner)
 - **Browser Automation:** Playwright
 - **Image Diffing:** pixelmatch
-- **CLI Framework:** commander or yargs
-- **Testing:** Vitest or Jest
+- **CLI Framework:** commander
+- **Testing:** Bun's built-in test runner (`bun:test`)
 
 ## Code Rules
 
@@ -37,10 +37,11 @@ Argus detects visual (pixel-accurate) and structural (DOM/CSS) changes across we
 - Log with context for debugging
 
 ## Testing
-- Framework: Vitest (preferred) or Jest
+- Framework: Bun's built-in test runner (`import { describe, it, expect } from 'bun:test'`)
 - Co-locate tests: `file.ts` → `file.test.ts`
 - Test all public APIs
 - Mock Playwright browser contexts in tests
+- Run tests: `bun test`
 
 ## Before Coding
 - Check `PRD.md` for functional requirements

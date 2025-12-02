@@ -7,12 +7,12 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { createInitCommand } from './commands/init.js';
-import { createCaptureCommand } from './commands/capture.js';
-import { createCompareCommand } from './commands/compare.js';
-import { createExploreCommand } from './commands/explore.js';
-import { createApproveCommand } from './commands/approve.js';
-import { VERSION } from './version.js';
+import { createInitCommand } from './commands/init.ts';
+import { createCaptureCommand } from './commands/capture.ts';
+import { createCompareCommand } from './commands/compare.ts';
+import { createExploreCommand } from './commands/explore.ts';
+import { createApproveCommand } from './commands/approve.ts';
+import { VERSION } from './version.ts';
 
 const program = new Command();
 

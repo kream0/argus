@@ -22,10 +22,10 @@ export type {
   TypeAction,
   Viewport,
   WaitAction,
-} from './types/index.js';
+} from './types/index.ts';
 
 // Re-export helpers
-export { defineConfig, DEFAULT_CONFIG } from './types/index.js';
+export { defineConfig, DEFAULT_CONFIG } from './types/index.ts';
 
 // Version
-export { VERSION } from './cli/version.js';
+export { VERSION } from './cli/version.ts';

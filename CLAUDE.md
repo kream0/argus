@@ -37,28 +37,29 @@ This step is non-negotiable to maintain project continuity.
 **Argus** is a CLI-based automated visual regression testing tool designed to detect pixel-accurate visual and structural (DOM/CSS) changes across web applications. It provides two primary modes: Explorer Mode (auto-discovery crawling) and Config Mode (declarative user-defined routes).
 
 ### Key Technologies
-- **Runtime:** Node.js with TypeScript
+- **Runtime:** Bun (package manager, bundler, test runner, and runtime)
 - **Browser Automation:** Playwright
 - **Image Diffing:** pixelmatch
 - **DOM Diffing:** jest-diff (for serialized DOM snapshots)
-- **CLI Framework:** commander or yargs
-- **Testing:** Vitest or Jest
+- **CLI Framework:** commander
+- **Validation:** Zod
 
 ### Project Type
-- CLI tool distributed via npm
+- CLI tool distributed via npm/bun
 - TypeScript with strict mode
-- ESM modules preferred
+- ESM modules
 
 ---
 
 ## Development Commands
 
-### Core Commands (Expected)
-- `npm install` - Install dependencies
-- `npm run build` - Build TypeScript to dist/
-- `npm run dev` - Development mode with watch
-- `npm test` - Run test suite
-- `npm run lint` - Run ESLint
+### Core Commands
+- `bun install` - Install dependencies
+- `bun run build` - Bundle with Bun
+- `bun src/cli/index.ts` - Run CLI directly (no build needed!)
+- `bun test` - Run tests with Bun's built-in runner
+- `bun test --watch` - Run tests in watch mode
+- `bun run lint` - Run ESLint
 
 ### CLI Commands (To Implement)
 - `argus init` - Generate default `argus.config.ts`
@@ -104,9 +105,10 @@ src/
 
 ## Testing Patterns
 
-### Test Framework: Vitest (preferred) or Jest
+### Test Framework: Bun's Built-in Test Runner
 ```typescript
-// ✅ Correct pattern
+import { describe, it, expect } from 'bun:test';
+
 describe('ExplorerMode', () => {
   it('should discover all internal links', async () => {
     const explorer = new Explorer({ maxDepth: 2 });
