@@ -53,11 +53,11 @@ export function createCompareCommand(): Command {
                 const onProgress = options.json
                     ? undefined
                     : (completed: number, total: number, result?: ComparisonResult) => {
-                          if (result) {
-                              const icon = getStatusIcon(result.status);
-                              process.stdout.write(`\r${icon} ${result.name} (${completed}/${total})`);
-                          }
-                      };
+                        if (result) {
+                            const icon = getStatusIcon(result.status);
+                            process.stdout.write(`\r${icon} ${result.name} (${completed}/${total})`);
+                        }
+                    };
 
                 try {
                     const report = await runComparison(config, onProgress);

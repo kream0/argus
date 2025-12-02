@@ -89,7 +89,7 @@ export function createCaptureCommand(): Command {
                 const onProgress = (completed: number, total: number, result?: CaptureResult) => {
                     const percentage = Math.round((completed / total) * 100);
                     const bar = createProgressBar(percentage);
-                    
+
                     if (result) {
                         const status = result.warnings.length > 0 ? chalk.yellow('⚠') : chalk.green('✓');
                         process.stdout.write(`\r${bar} ${percentage}% | ${status} ${result.routePath}`);

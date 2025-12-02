@@ -33,13 +33,13 @@ argus explore https://example.com
 
 ## CLI Commands
 
-| Command | Description |
-|---------|-------------|
-| `argus init` | Generate `argus.config.ts` |
-| `argus capture --baseline` | Capture baseline screenshots |
-| `argus compare` | Compare current vs baseline, generate report |
-| `argus explore <url>` | Auto-discover and capture pages |
-| `argus approve` | Promote current screenshots to baseline |
+| Command                    | Description                                  |
+|----------------------------|----------------------------------------------|
+| `argus init`               | Generate `argus.config.ts`                   |
+| `argus capture --baseline` | Capture baseline screenshots                 |
+| `argus compare`            | Compare current vs baseline, generate report |
+| `argus explore <url>`      | Auto-discover and capture pages              |
+| `argus approve`            | Promote current screenshots to baseline      |
 
 ## Configuration
 

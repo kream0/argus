@@ -1,11 +1,11 @@
 # TODO - Argus Development Tasks
 
-## 🎯 CURRENT PRIORITY: Phase 5 - Explorer Mode
+## 🎯 CURRENT PRIORITY: Phase 6 - Reporting
 
 ### Project Status
-- **Phase:** 5 of 7 (Explorer Mode)
-- **Progress:** Phases 1-4 Complete ✅
-- **Tests:** 55 passing
+- **Phase:** 6 of 7 (Reporting)
+- **Progress:** Phases 1-5 Complete ✅
+- **Tests:** 87 passing
 - **PRD:** ✅ Complete
 
 ---
@@ -68,7 +68,21 @@
 
 ---
 
-## Phase 5: Explorer Mode ⬅️ CURRENT
+## Phase 5: Explorer Mode ✅ COMPLETE
+**Completed:** December 2, 2025
+
+- [x] 1. Implement link crawler/scraper
+- [x] 2. Add URL deduplication and normalization
+- [x] 3. Implement depth and page limits
+- [x] 4. Add URL pattern exclusion (glob patterns)
+- [x] 5. Create `argus explore <url>` command
+- [x] 6. Write tests for explorer
+
+**Result:** `argus explore http://localhost:3000` discovers and captures pages ✅
+
+---
+
+## Phase 6: Reporting ⬅️ CURRENT
 **Estimated Time:** 4-6 hours
 
 - [ ] 1. Implement link crawler/scraper
@@ -121,16 +135,16 @@
 
 ## Time Estimates Summary
 
-| Phase     | Description          | Estimated Hours | Status    |
-|-----------|----------------------|-----------------|-----------|
-| 1         | Project Setup        | 2-4             | ✅ Done   |
-| 2         | Configuration System | 3-5             | ✅ Done   |
-| 3         | Core Capture Engine  | 6-10            | ✅ Done   |
-| 4         | Diffing & Comparison | 5-8             | 🔄 Current|
-| 5         | Explorer Mode        | 4-6             | ⏳ Pending|
-| 6         | Reporting            | 4-6             | ⏳ Pending|
-| 7         | Advanced Features    | 6-10            | ⏳ Pending|
-| **Total** |                      | **30-49 hours** |           |
+| Phase     | Description          | Estimated Hours | Status     |
+|-----------|----------------------|-----------------|------------|
+| 1         | Project Setup        | 2-4             | ✅ Done     |
+| 2         | Configuration System | 3-5             | ✅ Done     |
+| 3         | Core Capture Engine  | 6-10            | ✅ Done     |
+| 4         | Diffing & Comparison | 5-8             | 🔄 Current |
+| 5         | Explorer Mode        | 4-6             | ⏳ Pending  |
+| 6         | Reporting            | 4-6             | ⏳ Pending  |
+| 7         | Advanced Features    | 6-10            | ⏳ Pending  |
+| **Total** |                      | **30-49 hours** |            |
 
 ---
 

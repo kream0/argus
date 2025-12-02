@@ -198,7 +198,7 @@ export async function approveScreenshots(
     filter?: string[]
 ): Promise<{ approved: string[]; skipped: string[] }> {
     const { cp, rm } = await import('node:fs/promises');
-    
+
     const baselinesDir = join(config.outputDir, 'baselines');
     const currentDir = join(config.outputDir, 'current');
     const diffsDir = join(config.outputDir, 'diffs');
@@ -245,7 +245,7 @@ export async function approveScreenshots(
  */
 export async function cleanupComparison(config: ResolvedArgusConfig): Promise<void> {
     const { rm } = await import('node:fs/promises');
-    
+
     const currentDir = join(config.outputDir, 'current');
     const diffsDir = join(config.outputDir, 'diffs');
 
