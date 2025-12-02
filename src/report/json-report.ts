@@ -59,13 +59,13 @@ export async function generateJsonReport(
     outputPath: string
 ): Promise<string> {
     const jsonReport = createJsonReport(report, config);
-    
+
     // Ensure output directory exists
     await mkdir(dirname(outputPath), { recursive: true });
-    
+
     // Write report file
     await writeFile(outputPath, JSON.stringify(jsonReport, null, 2), 'utf-8');
-    
+
     return outputPath;
 }
 
@@ -118,13 +118,13 @@ export async function generateJUnitReport(
     outputPath: string
 ): Promise<string> {
     const xml = createJUnitXml(report, config);
-    
+
     // Ensure output directory exists
     await mkdir(dirname(outputPath), { recursive: true });
-    
+
     // Write report file
     await writeFile(outputPath, xml, 'utf-8');
-    
+
     return outputPath;
 }
 
@@ -143,7 +143,7 @@ function createJUnitXml(
     const testCases = report.results.map((result) => {
         const testTime = '0.001'; // Individual test times not tracked
         let content = '';
-        
+
         if (result.status === 'failed') {
             content = `
       <failure message="Visual difference detected: ${result.diffPercentage.toFixed(4)}%" type="VisualDiff">

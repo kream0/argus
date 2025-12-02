@@ -26,3 +26,12 @@ export {
     type CaptureReport,
     type CaptureError,
 } from './capture-engine.ts';
+
+export {
+    executePreScript,
+    loadPreScript,
+    createPreScriptContext,
+    type PreScriptContext,
+    type PreScriptResult,
+    type PreScriptFunction,
+} from './pre-script.ts';

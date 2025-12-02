@@ -14,3 +14,6 @@ export {
     ConfigError,
     formatConfigError,
 } from './loader.ts';
+
+// Re-export defineConfig from types
+export { defineConfig } from '../types/config.ts';

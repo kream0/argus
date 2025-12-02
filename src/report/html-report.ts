@@ -27,16 +27,16 @@ export async function generateHtmlReport(
 ): Promise<string> {
     const title = options.title ?? 'Argus Visual Regression Report';
     const reportDir = dirname(outputPath);
-    
+
     // Ensure output directory exists
     await mkdir(reportDir, { recursive: true });
 
     // Generate HTML content
     const html = generateReportHtml(report, config, title, options);
-    
+
     // Write report file
     await writeFile(outputPath, html, 'utf-8');
-    
+
     return outputPath;
 }
 
@@ -123,7 +123,7 @@ function generateReportHtml(
 function generateResultCard(result: ComparisonResult, config: ValidatedArgusConfig): string {
     const statusClass = result.status;
     const statusIcon = getStatusIcon(result.status);
-    const diffInfo = result.diffPercentage > 0 
+    const diffInfo = result.diffPercentage > 0
         ? `<span class="diff-percentage">${result.diffPercentage.toFixed(4)}% diff</span>`
         : '';
 
