@@ -122,16 +122,16 @@
 
 ## Time Estimates Summary
 
-| Phase | Description | Estimated Hours |
-|-------|-------------|-----------------|
-| 1 | Project Setup | 2-4 |
-| 2 | Configuration System | 3-5 |
-| 3 | Core Capture Engine | 6-10 |
-| 4 | Diffing & Comparison | 5-8 |
-| 5 | Explorer Mode | 4-6 |
-| 6 | Reporting | 4-6 |
-| 7 | Advanced Features | 6-10 |
-| **Total** | | **30-49 hours** |
+| Phase     | Description          | Estimated Hours |
+|-----------|----------------------|-----------------|
+| 1         | Project Setup        | 2-4             |
+| 2         | Configuration System | 3-5             |
+| 3         | Core Capture Engine  | 6-10            |
+| 4         | Diffing & Comparison | 5-8             |
+| 5         | Explorer Mode        | 4-6             |
+| 6         | Reporting            | 4-6             |
+| 7         | Advanced Features    | 6-10            |
+| **Total** |                      | **30-49 hours** |
 
 ---
 

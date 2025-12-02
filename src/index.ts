@@ -6,22 +6,22 @@
 
 // Re-export types
 export type {
-  ActionType,
-  Action,
-  ArgusConfig,
-  AuthConfig,
-  BaseAction,
-  ClickAction,
-  ExplorerConfig,
-  HoverAction,
-  ResolvedArgusConfig,
-  RouteConfig,
-  ScrollAction,
-  SelectAction,
-  ThresholdConfig,
-  TypeAction,
-  Viewport,
-  WaitAction,
+    ActionType,
+    Action,
+    ArgusConfig,
+    AuthConfig,
+    BaseAction,
+    ClickAction,
+    ExplorerConfig,
+    HoverAction,
+    ResolvedArgusConfig,
+    RouteConfig,
+    ScrollAction,
+    SelectAction,
+    ThresholdConfig,
+    TypeAction,
+    Viewport,
+    WaitAction,
 } from './types/index.ts';
 
 // Re-export helpers

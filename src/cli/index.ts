@@ -17,12 +17,12 @@ import { VERSION } from './version.ts';
 const program = new Command();
 
 program
-  .name('argus')
-  .description(
-    chalk.cyan('🔍 Argus - Visual Regression Testing Tool\n') +
-      'Detect visual and structural changes across web applications.'
-  )
-  .version(VERSION, '-v, --version', 'Display version number');
+    .name('argus')
+    .description(
+        chalk.cyan('🔍 Argus - Visual Regression Testing Tool\n') +
+        'Detect visual and structural changes across web applications.'
+    )
+    .version(VERSION, '-v, --version', 'Display version number');
 
 // Register commands
 program.addCommand(createInitCommand());
