@@ -32,15 +32,13 @@ export function createCaptureCommand(): Command {
             }) => {
                 console.log(chalk.cyan('\n🔍 Argus Capture\n'));
 
-                // Load configuration
-                const configResult = await loadConfig(options.config);
-
-                if (!configResult.success) {
-                    console.error(chalk.red(formatConfigError(configResult.error)));
+                let config;
+                try {
+                    config = await loadConfig(options.config);
+                } catch (error) {
+                    console.error(formatConfigError(error as any));
                     process.exit(1);
                 }
-
-                const config = configResult.config;
 
                 // Apply CLI overrides
                 if (options.concurrency) {

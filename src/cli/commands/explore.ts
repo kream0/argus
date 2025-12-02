@@ -50,7 +50,7 @@ export function createExploreCommand(): Command {
                 // Try to load config, use defaults if not found
                 let config;
                 const configResult = await loadConfig(options.config);
-                
+
                 if (configResult.success) {
                     config = configResult.config;
                     // Override baseUrl with provided URL

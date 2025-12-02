@@ -6,8 +6,10 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
+import { join } from 'node:path';
 import { loadConfig, formatConfigError } from '../../config/loader.ts';
 import { runComparison, type ComparisonResult } from '../../diff/index.ts';
+import { generateHtmlReport, generateJsonReport, generateJUnitReport } from '../../report/index.ts';
 
 export function createCompareCommand(): Command {
     const command = new Command('compare');
@@ -17,27 +19,34 @@ export function createCompareCommand(): Command {
         .option('-c, --config <path>', 'Path to configuration file', 'argus.config.ts')
         .option('--threshold <number>', 'Override pixel difference threshold (0-1)')
         .option('--update-missing', 'Create baseline for new images instead of failing')
-        .option('--json', 'Output results as JSON')
+        .option('--json', 'Output results as JSON to stdout')
+        .option('--report', 'Generate HTML report', true)
+        .option('--no-report', 'Skip HTML report generation')
+        .option('--report-path <path>', 'Custom path for HTML report')
+        .option('--junit <path>', 'Generate JUnit XML report at specified path')
         .action(
             async (options: {
                 config?: string;
                 threshold?: string;
                 updateMissing?: boolean;
                 json?: boolean;
+                report?: boolean;
+                reportPath?: string;
+                junit?: string;
             }) => {
                 if (!options.json) {
                     console.log(chalk.cyan('\n🔍 Argus Compare\n'));
                 }
 
-                // Load configuration
-                const configResult = await loadConfig(options.config);
-
-                if (!configResult.success) {
-                    console.error(chalk.red(formatConfigError(configResult.error)));
+                let config;
+                try {
+                    config = await loadConfig(options.config);
+                } catch (error) {
+                    if (!options.json) {
+                        console.error(formatConfigError(error as any));
+                    }
                     process.exit(1);
                 }
-
-                const config = configResult.config;
 
                 // Apply threshold override
                 if (options.threshold) {
@@ -71,6 +80,33 @@ export function createCompareCommand(): Command {
                     if (options.json) {
                         console.log(JSON.stringify(report, null, 2));
                         process.exit(report.failed > 0 || report.errors > 0 ? 1 : 0);
+                    }
+
+                    // Generate reports
+                    if (options.report && report.total > 0) {
+                        const htmlPath = options.reportPath ?? join(config.outputDir, 'report', 'index.html');
+                        const jsonPath = join(config.outputDir, 'report', 'report.json');
+                        
+                        const reportPromises = [
+                            generateHtmlReport(report, config, htmlPath),
+                            generateJsonReport(report, config, jsonPath),
+                        ];
+                        
+                        // Add JUnit report if requested
+                        if (options.junit) {
+                            reportPromises.push(generateJUnitReport(report, config, options.junit));
+                        }
+                        
+                        await Promise.all(reportPromises);
+                        
+                        console.log(chalk.cyan(`\n📊 Report generated: ${htmlPath}`));
+                        if (options.junit) {
+                            console.log(chalk.cyan(`   JUnit report: ${options.junit}`));
+                        }
+                    } else if (options.junit && report.total > 0) {
+                        // JUnit only (no HTML report)
+                        await generateJUnitReport(report, config, options.junit);
+                        console.log(chalk.cyan(`\n📊 JUnit report: ${options.junit}`));
                     }
 
                     // Print summary

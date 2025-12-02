@@ -25,8 +25,8 @@ export interface AuthConfig {
     passwordSelector: string;
     /** Login credentials (use environment variables) */
     credentials: {
-        username: string | undefined;
-        password: string | undefined;
+        username?: string;
+        password?: string;
     };
     /** CSS selector to wait for after successful login */
     postLoginSelector: string;

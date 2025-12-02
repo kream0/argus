@@ -54,20 +54,20 @@ function globToRegex(pattern: string): RegExp {
 export function normalizeUrl(url: string, removeQuery = false): string {
     try {
         const parsed = new URL(url);
-        
+
         // Remove fragment
         parsed.hash = '';
-        
+
         // Optionally remove query string
         if (removeQuery) {
             parsed.search = '';
         }
-        
+
         // Remove trailing slash from pathname (except for root)
         if (parsed.pathname !== '/' && parsed.pathname.endsWith('/')) {
             parsed.pathname = parsed.pathname.slice(0, -1);
         }
-        
+
         return parsed.toString();
     } catch {
         return url;
@@ -95,12 +95,12 @@ export function shouldCrawl(url: string, options: CrawlOptions): boolean {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
         return false;
     }
-    
+
     // Must be internal
     if (!isInternalUrl(url, options.baseUrl)) {
         return false;
     }
-    
+
     // Skip common resource extensions
     const resourceExtensions = [
         '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico',
@@ -109,12 +109,12 @@ export function shouldCrawl(url: string, options: CrawlOptions): boolean {
         '.mp3', '.mp4', '.webm', '.ogg', '.wav',
         '.zip', '.tar', '.gz', '.rar',
     ];
-    
+
     const pathname = new URL(url).pathname.toLowerCase();
     if (resourceExtensions.some((ext) => pathname.endsWith(ext))) {
         return false;
     }
-    
+
     // Check exclude patterns
     if (options.exclude && options.exclude.length > 0) {
         const path = new URL(url).pathname;
@@ -122,7 +122,7 @@ export function shouldCrawl(url: string, options: CrawlOptions): boolean {
             return false;
         }
     }
-    
+
     // Check include patterns (if specified, only include matching URLs)
     if (options.include && options.include.length > 0) {
         const path = new URL(url).pathname;
@@ -130,7 +130,7 @@ export function shouldCrawl(url: string, options: CrawlOptions): boolean {
             return false;
         }
     }
-    
+
     return true;
 }
 
@@ -145,13 +145,13 @@ export async function extractLinks(page: Page, options: CrawlOptions): Promise<E
             text: a.textContent?.trim() || '',
         }));
     });
-    
+
     const extractedLinks: ExtractedLink[] = [];
     const seen = new Set<string>();
-    
+
     for (const link of links) {
         if (!link.href) continue;
-        
+
         // Resolve relative URLs
         let absoluteUrl: string;
         try {
@@ -159,14 +159,14 @@ export async function extractLinks(page: Page, options: CrawlOptions): Promise<E
         } catch {
             continue;
         }
-        
+
         // Normalize
         const normalizedUrl = normalizeUrl(absoluteUrl);
-        
+
         // Skip if already seen or shouldn't crawl
         if (seen.has(normalizedUrl)) continue;
         if (!shouldCrawl(normalizedUrl, options)) continue;
-        
+
         seen.add(normalizedUrl);
         extractedLinks.push({
             url: normalizedUrl,
@@ -174,7 +174,7 @@ export async function extractLinks(page: Page, options: CrawlOptions): Promise<E
             text: link.text,
         });
     }
-    
+
     return extractedLinks;
 }
 
@@ -185,11 +185,11 @@ export function getPathName(url: string): string {
     try {
         const parsed = new URL(url);
         const path = parsed.pathname;
-        
+
         if (path === '/' || path === '') {
             return 'home';
         }
-        
+
         // Remove leading/trailing slashes and convert to name
         return path
             .replace(/^\/|\/$/g, '')

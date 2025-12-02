@@ -1,11 +1,11 @@
 # TODO - Argus Development Tasks
 
-## 🎯 CURRENT PRIORITY: Phase 6 - Reporting
+## 🎯 CURRENT PRIORITY: Phase 7 - Advanced Features
 
 ### Project Status
-- **Phase:** 6 of 7 (Reporting)
-- **Progress:** Phases 1-5 Complete ✅
-- **Tests:** 87 passing
+- **Phase:** 7 of 7 (Advanced Features)
+- **Progress:** Phases 1-6 Complete ✅
+- **Tests:** 102 passing
 - **PRD:** ✅ Complete
 
 ---
@@ -82,42 +82,29 @@
 
 ---
 
-## Phase 6: Reporting ⬅️ CURRENT
-**Estimated Time:** 4-6 hours
+## Phase 6: Reporting ✅ COMPLETE
+**Completed:** December 2, 2025
 
-- [ ] 1. Implement link crawler/scraper
-- [ ] 2. Add URL deduplication and normalization
-- [ ] 3. Implement depth and page limits
-- [ ] 4. Add URL pattern exclusion (regex)
-- [ ] 5. Create `argus explore <url>` command
-- [ ] 6. Write tests for explorer
+- [x] 1. Create HTML report template with interactive UI
+- [x] 2. Implement side-by-side comparison view
+- [x] 3. Add slider/overlay comparison mode
+- [x] 4. Include metadata (browser, viewport, timestamp)
+- [x] 5. Add JSON/JUnit output for CI
+- [x] 6. Add `--junit` option to compare command
+- [x] 7. Write tests for report generation (15 tests)
 
-**Goal:** `argus explore http://localhost:3000` discovers and captures pages
-
----
-
-## Phase 6: Reporting (0%)
-**Estimated Time:** 4-6 hours
-
-- [ ] 1. Create HTML report template
-- [ ] 2. Implement side-by-side comparison view
-- [ ] 3. Add slider/overlay comparison mode
-- [ ] 4. Include metadata (browser, viewport, DOM diff)
-- [ ] 5. Add JSON/JUnit output for CI
-- [ ] 6. Write tests for report generation
-
-**Goal:** Generate interactive HTML report with visual comparisons
+**Result:** Generate interactive HTML report + JSON + JUnit XML ✅
 
 ---
 
-## Phase 7: Advanced Features (0%)
+## Phase 7: Advanced Features ⬅️ CURRENT
 **Estimated Time:** 6-10 hours
 
-- [ ] 1. Add pre-screenshot actions (click, hover, wait)
-- [ ] 2. Implement custom pre-scripts
-- [ ] 3. Add concurrent capture support
+- [ ] 1. Add pre-screenshot actions (click, hover, wait, scroll, type, select)
+- [ ] 2. Implement custom pre-scripts execution
+- [ ] 3. Enhance concurrent capture with better queue management
 - [ ] 4. Implement Git Mode comparison (`argus git-compare`)
-- [ ] 5. Add CI/CD integration helpers
+- [ ] 5. Add CI/CD integration helpers (GitHub Actions example)
 - [ ] 6. Performance optimization
 
 **Goal:** Full feature parity with PRD requirements
@@ -140,10 +127,10 @@
 | 1         | Project Setup        | 2-4             | ✅ Done     |
 | 2         | Configuration System | 3-5             | ✅ Done     |
 | 3         | Core Capture Engine  | 6-10            | ✅ Done     |
-| 4         | Diffing & Comparison | 5-8             | 🔄 Current |
-| 5         | Explorer Mode        | 4-6             | ⏳ Pending  |
-| 6         | Reporting            | 4-6             | ⏳ Pending  |
-| 7         | Advanced Features    | 6-10            | ⏳ Pending  |
+| 4         | Diffing & Comparison | 5-8             | ✅ Done     |
+| 5         | Explorer Mode        | 4-6             | ✅ Done     |
+| 6         | Reporting            | 4-6             | ✅ Done     |
+| 7         | Advanced Features    | 6-10            | 🔄 Current |
 | **Total** |                      | **30-49 hours** |            |
 
 ---
@@ -155,4 +142,4 @@
 
 ---
 
-**Next Session Goal:** Complete Phase 4 - Diffing & Comparison Engine
+**Next Session Goal:** Complete Phase 7 - Advanced Features

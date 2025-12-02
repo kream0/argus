@@ -7,7 +7,8 @@
 import { readdir, stat, access } from 'node:fs/promises';
 import { join, relative, basename } from 'node:path';
 import { compareImages, type DiffResult, type DiffOptions } from './image-diff.ts';
-import type { ResolvedArgusConfig, ThresholdConfig } from '../types/config.ts';
+import type { ValidatedArgusConfig } from '../config/schema.ts';
+import type { ThresholdConfig } from '../types/config.ts';
 
 export interface ComparisonResult extends DiffResult {
     /** Name of the screenshot (filename without extension) */
@@ -81,7 +82,7 @@ async function getPngFiles(dir: string): Promise<string[]> {
  * Compare all current screenshots against baselines
  */
 export async function runComparison(
-    config: ResolvedArgusConfig,
+    config: ValidatedArgusConfig,
     onProgress?: (completed: number, total: number, result?: ComparisonResult) => void
 ): Promise<ComparisonReport> {
     const startTime = Date.now();
@@ -194,7 +195,7 @@ export async function runComparison(
  * Approve (promote) current screenshots to baselines
  */
 export async function approveScreenshots(
-    config: ResolvedArgusConfig,
+    config: ValidatedArgusConfig,
     filter?: string[]
 ): Promise<{ approved: string[]; skipped: string[] }> {
     const { cp, rm } = await import('node:fs/promises');
@@ -243,7 +244,7 @@ export async function approveScreenshots(
 /**
  * Clean up current and diffs directories
  */
-export async function cleanupComparison(config: ResolvedArgusConfig): Promise<void> {
+export async function cleanupComparison(config: ValidatedArgusConfig): Promise<void> {
     const { rm } = await import('node:fs/promises');
 
     const currentDir = join(config.outputDir, 'current');
