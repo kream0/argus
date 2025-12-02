@@ -1,11 +1,11 @@
 # TODO - Argus Development Tasks
 
-## 🎯 CURRENT PRIORITY: Phase 2 - Configuration System
+## 🎯 CURRENT PRIORITY: Phase 4 - Diffing & Comparison Engine
 
 ### Project Status
-- **Phase:** 2 of 7 (Configuration System)
-- **Progress:** Phase 1 Complete ✅
-- **Tests:** 8 passing
+- **Phase:** 4 of 7 (Diffing & Comparison)
+- **Progress:** Phases 1-3 Complete ✅
+- **Tests:** 41 passing
 - **PRD:** ✅ Complete
 
 ---
@@ -18,43 +18,43 @@
 - [x] 3. Set up ESLint and Prettier
 - [x] 4. Create folder structure (src/, tests/, etc.)
 - [x] 5. Create type definitions (`src/types/config.ts`)
-- [x] 6. Set up Vitest for testing
+- [x] 6. Set up Bun test runner
 - [x] 7. Create basic CLI scaffold with commander
 
 **Result:** CLI responds to `argus --help` ✅
 
 ---
 
-## Phase 2: Configuration System ⬅️ CURRENT
-**Estimated Time:** 3-5 hours
+## Phase 2: Configuration System ✅ COMPLETE
+**Completed:** December 2, 2025
 
-- [ ] 1. Implement `defineConfig()` helper with Zod validation
-- [ ] 2. Create config file loader (TypeScript configs via jiti/tsx)
-- [ ] 3. Implement config validation with comprehensive error messages
-- [ ] 4. Create `argus init` command (generate argus.config.ts)
-- [ ] 5. Write tests for config loading and validation
+- [x] 1. Implement `defineConfig()` helper with Zod validation
+- [x] 2. Create config file loader (TypeScript configs via Bun)
+- [x] 3. Implement config validation with comprehensive error messages
+- [x] 4. Create `argus init` command (generate argus.config.ts)
+- [x] 5. Write tests for config loading and validation
 
-**Goal:** `argus init` generates a valid `argus.config.ts`
-
----
-
-## Phase 3: Core Capture Engine (0%)
-**Estimated Time:** 6-10 hours
-
-- [ ] 1. Implement Playwright browser management
-- [ ] 2. Create screenshot capture with viewport support
-- [ ] 3. Implement timezone/locale context injection
-- [ ] 4. Add CSS animation disabling
-- [ ] 5. Implement dynamic content masking
-- [ ] 6. Add authentication handling
-- [ ] 7. Create `argus capture --baseline` command
-- [ ] 8. Write tests for capture engine
-
-**Goal:** Capture baseline screenshots for configured routes
+**Result:** `argus init` generates valid `argus.config.ts` ✅
 
 ---
 
-## Phase 4: Diffing & Comparison Engine (0%)
+## Phase 3: Core Capture Engine ✅ COMPLETE
+**Completed:** December 2, 2025
+
+- [x] 1. Implement Playwright browser management
+- [x] 2. Create screenshot capture with viewport support
+- [x] 3. Implement timezone/locale context injection
+- [x] 4. Add CSS animation disabling
+- [x] 5. Implement dynamic content masking
+- [x] 6. Add authentication handling
+- [x] 7. Create `argus capture --baseline` command
+- [x] 8. Write tests for capture engine
+
+**Result:** Capture baseline screenshots for configured routes ✅
+
+---
+
+## Phase 4: Diffing & Comparison Engine ⬅️ CURRENT
 **Estimated Time:** 5-8 hours
 
 - [ ] 1. Integrate pixelmatch for visual diffing
@@ -122,16 +122,16 @@
 
 ## Time Estimates Summary
 
-| Phase     | Description          | Estimated Hours |
-|-----------|----------------------|-----------------|
-| 1         | Project Setup        | 2-4             |
-| 2         | Configuration System | 3-5             |
-| 3         | Core Capture Engine  | 6-10            |
-| 4         | Diffing & Comparison | 5-8             |
-| 5         | Explorer Mode        | 4-6             |
-| 6         | Reporting            | 4-6             |
-| 7         | Advanced Features    | 6-10            |
-| **Total** |                      | **30-49 hours** |
+| Phase     | Description          | Estimated Hours | Status    |
+|-----------|----------------------|-----------------|-----------|
+| 1         | Project Setup        | 2-4             | ✅ Done   |
+| 2         | Configuration System | 3-5             | ✅ Done   |
+| 3         | Core Capture Engine  | 6-10            | ✅ Done   |
+| 4         | Diffing & Comparison | 5-8             | 🔄 Current|
+| 5         | Explorer Mode        | 4-6             | ⏳ Pending|
+| 6         | Reporting            | 4-6             | ⏳ Pending|
+| 7         | Advanced Features    | 6-10            | ⏳ Pending|
+| **Total** |                      | **30-49 hours** |           |
 
 ---
 
@@ -142,4 +142,4 @@
 
 ---
 
-**Next Session Goal:** Complete Phase 1 - Project Setup & Foundation
+**Next Session Goal:** Complete Phase 4 - Diffing & Comparison Engine

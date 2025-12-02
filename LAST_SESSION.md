@@ -1,78 +1,60 @@
 # Last Session Summary
 
 **Date:** December 2, 2025  
-**Focus:** Phase 1 - Project Setup & Foundation
+**Focus:** Phase 3 - Core Capture Engine
 
 ## Accomplishments
-- ✅ Created `package.json` with dependencies (playwright, pixelmatch, commander, chalk, zod)
-- ✅ Configured TypeScript with strict mode and ESM modules
-- ✅ Set up ESLint (flat config) and Prettier
-- ✅ Created complete folder structure (src/cli/, src/types/, src/core/)
-- ✅ Implemented comprehensive type definitions for configuration (`ArgusConfig`, `RouteConfig`, `ExplorerConfig`, etc.)
-- ✅ Configured Vitest for testing
-- ✅ Built complete CLI scaffold with all 5 commands (init, capture, compare, explore, approve)
-- ✅ Created 8 passing unit tests for configuration types
-- ✅ Verified build and CLI functionality
+- ✅ Implemented `BrowserManager` - Playwright browser/context lifecycle management
+- ✅ Created `CaptureEngine` - Orchestrates captures with concurrency control
+- ✅ Built screenshot capture with CSS animation disabling and masking
+- ✅ Added authentication support (login flow, storage state)
+- ✅ Implemented `argus capture --baseline` command with progress reporting
+- ✅ Added viewport, timezone, and locale context injection
+- ✅ Created 20 new tests for capture engine (41 total tests passing)
 
 ## Current State
-- **Project Phase:** Phase 1 Complete ✅
-- **Code Status:** Foundation complete, CLI responding
-- **Tests:** 8 passing (config types)
+- **Project Phase:** Phase 3 Complete ✅
+- **Code Status:** Capture engine functional
+- **Tests:** 41 passing
 - **Build:** Compiling successfully
 
-## Files Created
+## Files Created/Modified
 ```
-package.json                    # npm project configuration
-tsconfig.json                   # TypeScript config (strict mode, ESM)
-eslint.config.mjs               # ESLint flat config
-.prettierrc                     # Prettier config
-.prettierignore                 # Prettier ignore patterns
-.gitignore                      # Git ignore patterns
-vitest.config.ts                # Vitest test config
-src/
-├── index.ts                    # Main entry point
-├── types/
-│   ├── config.ts               # Configuration type definitions
-│   ├── config.test.ts          # Config type tests (8 tests)
-│   └── index.ts                # Types barrel export
-└── cli/
-    ├── index.ts                # CLI entry point
-    ├── version.ts              # Version constant
-    └── commands/
-        ├── index.ts            # Commands barrel export
-        ├── init.ts             # argus init command
-        ├── capture.ts          # argus capture command
-        ├── compare.ts          # argus compare command
-        ├── explore.ts          # argus explore command
-        └── approve.ts          # argus approve command
+src/capture/
+├── index.ts               # Capture module exports
+├── browser-manager.ts     # Playwright browser management
+├── browser-manager.test.ts
+├── screenshot.ts          # Screenshot capture utilities
+├── screenshot.test.ts
+├── capture-engine.ts      # Main capture orchestration
+└── capture-engine.test.ts
+
+src/cli/commands/capture.ts  # Updated with full implementation
+tsconfig.json                # Added DOM lib for browser APIs
 ```
 
-## CLI Commands Available
-- `argus --help` - Shows help with all commands ✅
-- `argus --version` - Shows version (0.1.0) ✅
-- `argus init` - Placeholder (Phase 2)
-- `argus capture` - Placeholder (Phase 3)
+## CLI Commands Working
+- `argus init` ✅ - Generates argus.config.ts and .argus/ directory
+- `argus capture --baseline` ✅ - Captures screenshots to baselines/
+- `argus capture` ✅ - Captures screenshots to current/
 - `argus compare` - Placeholder (Phase 4)
 - `argus explore <url>` - Placeholder (Phase 5)
 - `argus approve` - Placeholder (Phase 4)
 
-## Key Technical Decisions
-- **ESM modules:** Using `"type": "module"` in package.json
-- **TypeScript strict:** All strict options enabled
-- **Commander.js:** Chosen for CLI framework (clean API, good TypeScript support)
-- **Vitest:** Selected for testing (fast, ESM-native)
-- **Zod:** Installed for future config validation (Phase 2)
+## Key Features Implemented
+- **Browser Management:** Chromium, Firefox, WebKit support
+- **Context Injection:** Timezone, locale, viewport per capture
+- **CSS Animation Disabling:** Injects CSS to stop all animations
+- **Dynamic Masking:** Black-box selectors before capture
+- **Action Execution:** click, hover, wait, scroll, type, select
+- **Authentication:** Login flow with credential injection
+- **Progress Reporting:** Real-time progress bar in terminal
+- **Concurrency:** Configurable parallel captures
 
-## Next Session Goals
-1. Implement `defineConfig()` helper with validation
-2. Create config file loader (TypeScript configs)
-3. Implement config validation with Zod
-4. Build `argus init` command to generate config file
-5. Write tests for config loading
-
-## Notes for Next Session
-- The CLI scaffold is complete and working
-- Type definitions are comprehensive and match PRD spec
-- All commands have placeholders that show which phase implements them
-- Consider using `tsx` or `jiti` for loading TypeScript configs at runtime
-- May need to add `esbuild` for dynamic TypeScript config loading
+## Next Session Goals (Phase 4)
+1. Implement pixelmatch-based image comparison
+2. Create diff image generation
+3. Build `argus compare` command
+4. Implement `argus approve` command
+5. Add threshold-based pass/fail logic
+6. Generate comparison reports
