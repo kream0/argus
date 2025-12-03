@@ -86,6 +86,24 @@ export default defineConfig({
 └── report/       # HTML report output
 ```
 
+## GUI Application
+
+Argus also includes a desktop GUI application built with [Electrobun](https://blackboard.sh/electrobun/docs/). The GUI wraps the CLI commands and provides a visual interface for running visual regression tests.
+
+```bash
+# Navigate to GUI directory
+cd gui
+
+# Install dependencies
+bun install
+
+# Run in development mode
+npx electrobun dev
+
+# Build for production
+bun run build
+```
+
 ## Development
 
 ```bash
@@ -105,9 +123,10 @@ bun run build
 ## Tech Stack
 
 - Runtime: Bun
-- Browser Automation: Playwright
+- Browser Automation: Puppeteer-core
 - Image Diffing: pixelmatch
 - CLI: Commander
+- GUI: Electrobun (WebView2)
 
 ## License
 

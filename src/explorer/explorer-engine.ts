@@ -70,7 +70,7 @@ export class ExplorerEngine {
     constructor(config: ResolvedArgusConfig, options: ExplorerOptions) {
         this.config = config;
         this.options = options;
-        this.browserManager = createBrowserManager(config);
+        this.browserManager = createBrowserManager(config, options.headless ?? true);
     }
 
     /**
@@ -95,15 +95,19 @@ export class ExplorerEngine {
         let error: string | undefined;
 
         const page = await this.browserManager.createPage(context, this.config.disableAnimations);
+        console.log(`[Explorer] Page created, navigating to ${url}...`);
 
         try {
-            // Navigate to URL
+            // Navigate to URL with timeout
             await page.goto(url, {
                 waitUntil: this.config.waitForNetworkIdle ? 'networkidle' : 'load',
+                timeout: 30000,
             });
+            console.log(`[Explorer] Navigation complete for ${url}`);
 
             // Capture for each viewport
             for (const viewport of this.config.viewports) {
+                console.log(`[Explorer] Setting viewport ${viewport.width}x${viewport.height}...`);
                 await page.setViewportSize({
                     width: viewport.width,
                     height: viewport.height,
@@ -117,6 +121,7 @@ export class ExplorerEngine {
                 const outputPath = join(this.getOutputDir(), filename);
 
                 try {
+                    console.log(`[Explorer] Taking screenshot...`);
                     const result = await captureScreenshot(page, outputPath, {
                         baseUrl: this.options.startUrl,
                         path: new URL(url).pathname,
@@ -125,9 +130,11 @@ export class ExplorerEngine {
                         waitForNetworkIdle: this.config.waitForNetworkIdle,
                     });
                     captures.push(result);
+                    console.log(`[Explorer] Screenshot saved: ${filename}`);
                 } catch (err) {
                     const message = err instanceof Error ? err.message : String(err);
                     error = error ? `${error}; ${message}` : message;
+                    console.log(`[Explorer] Screenshot error: ${message}`);
                 }
             }
 
@@ -175,6 +182,7 @@ export class ExplorerEngine {
         const results: ExplorerResult[] = [];
         const maxPages = this.options.maxPages ?? this.config.explorer.maxPages;
 
+        console.log('[Explorer] Creating output directory...');
         // Ensure output directory exists
         await mkdir(this.getOutputDir(), { recursive: true });
 
@@ -182,12 +190,14 @@ export class ExplorerEngine {
         const startUrl = normalizeUrl(this.options.startUrl);
         this.queue.push({ url: startUrl, depth: 0 });
 
+        console.log('[Explorer] Launching browser...');
         // Create browser context
         const context = await this.browserManager.createContext({
             viewport: this.config.viewports[0] ?? { width: 1920, height: 1080 },
             timezone: this.config.timezone,
             locale: this.config.locale,
         });
+        console.log('[Explorer] Browser launched successfully');
 
         try {
             while (this.queue.length > 0 && results.length < maxPages) {
@@ -201,9 +211,11 @@ export class ExplorerEngine {
                 if (this.visited.has(normalized)) continue;
                 this.visited.add(normalized);
 
+                console.log(`[Explorer] Capturing: ${url} (depth: ${depth})`);
                 // Capture the URL
                 const result = await this.captureUrl(url, depth, context);
                 results.push(result);
+                console.log(`[Explorer] Captured: ${url} - ${result.captures.length} screenshots`);
 
                 onProgress?.(this.visited.size + this.queue.length, results.length, result);
             }

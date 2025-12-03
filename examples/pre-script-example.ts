@@ -41,7 +41,7 @@ export default async function preScript(context: PreScriptContext): Promise<void
     if (viewport.width < 768) {
         const sidebarToggle = page.locator('[data-toggle="sidebar"]');
         if ((await sidebarToggle.count()) > 0) {
-            await sidebarToggle.click().catch(() => {});
+            await sidebarToggle.click().catch(() => { });
         }
     }
 

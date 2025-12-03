@@ -7,7 +7,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { loadConfig, formatConfigError } from '../../config/loader.ts';
-import { runExplorer, type ExplorerResult } from '../../explorer/index.ts';
+import { runPuppeteerExplorer, type ExplorerResult } from '../../explorer/puppeteer-explorer.ts';
 import type { Viewport } from '../../types/config.ts';
 
 export function createExploreCommand(): Command {
@@ -24,6 +24,8 @@ export function createExploreCommand(): Command {
         .option('-c, --config <path>', 'Path to configuration file', 'argus.config.ts')
         .option('--headless', 'Run browser in headless mode', true)
         .option('--no-headless', 'Run browser with visible UI')
+        .option('-u, --username <username>', 'Username/email for authentication')
+        .option('--password <password>', 'Password for authentication (will prompt if not provided)')
         .action(
             async (
                 url: string,
@@ -35,6 +37,8 @@ export function createExploreCommand(): Command {
                     baseline?: boolean;
                     config?: string;
                     headless?: boolean;
+                    username?: string;
+                    password?: string;
                 }
             ) => {
                 console.log(chalk.cyan('\n🔍 Argus Explorer\n'));
@@ -90,20 +94,29 @@ export function createExploreCommand(): Command {
                 if (config.explorer.exclude && config.explorer.exclude.length > 0) {
                     console.log(chalk.gray(`Excluding: ${config.explorer.exclude.join(', ')}`));
                 }
+                if (options.username) {
+                    console.log(chalk.gray(`Auth: credentials provided for ${options.username}`));
+                }
                 console.log('');
+
+                // Build credentials if provided
+                const credentials = options.username && options.password
+                    ? { username: options.username, password: options.password }
+                    : undefined;
 
                 // Progress callback
                 const onProgress = (discovered: number, captured: number, current?: ExplorerResult) => {
                     if (current) {
                         const status = current.error ? chalk.red('✗') : chalk.green('✓');
+                        const loginIcon = current.isLoginPage ? ' 🔐' : '';
                         process.stdout.write(
-                            `\r${status} ${current.path} (${captured}/${config.explorer.maxPages} pages, ${discovered} discovered)`
+                            `\r${status} ${current.path}${loginIcon} (${captured}/${config.explorer.maxPages} pages, ${discovered} discovered)`
                         );
                     }
                 };
 
                 try {
-                    const report = await runExplorer(
+                    const report = await runPuppeteerExplorer(
                         config,
                         {
                             startUrl: url,
@@ -112,6 +125,7 @@ export function createExploreCommand(): Command {
                             exclude: config.explorer.exclude,
                             mode,
                             headless: options.headless,
+                            credentials,
                         },
                         onProgress
                     );
@@ -127,6 +141,9 @@ export function createExploreCommand(): Command {
                     if (report.failed > 0) {
                         console.log(chalk.red(`  Failed: ${report.failed}`));
                     }
+                    if (report.authenticated) {
+                        console.log(chalk.yellow(`  🔐 Authenticated: yes`));
+                    }
                     console.log(chalk.gray(`  Duration: ${(report.duration / 1000).toFixed(2)}s`));
 
                     // Show captured pages
@@ -134,7 +151,8 @@ export function createExploreCommand(): Command {
                         console.log(chalk.bold('\nCaptured Pages:\n'));
                         for (const result of report.results) {
                             const icon = result.error ? chalk.red('✗') : chalk.green('✓');
-                            console.log(`  ${icon} ${result.path} (depth: ${result.depth})`);
+                            const loginIcon = result.isLoginPage ? chalk.yellow(' 🔐') : '';
+                            console.log(`  ${icon} ${result.path}${loginIcon} (depth: ${result.depth})`);
                             if (result.error) {
                                 console.log(chalk.red(`    Error: ${result.error}`));
                             }

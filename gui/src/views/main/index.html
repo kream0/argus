@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Argus - Visual Regression Testing</title>
+        <link rel="stylesheet" href="views://main/styles.css">
+    </head>
+
+    <body>
+        <div class="app">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-brand">
+                    <span class="logo">🔍</span>
+                    <h1>Argus</h1>
+                    <span class="tagline">Visual Regression Testing</span>
+                </div>
+                <div class="header-status" id="status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Ready</span>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <nav class="nav">
+                        <button class="nav-btn active" data-tab="explore">
+                            <span class="nav-icon">🌐</span>
+                            <span class="nav-label">Explore</span>
+                        </button>
+                        <button class="nav-btn" data-tab="compare">
+                            <span class="nav-icon">⚖️</span>
+                            <span class="nav-label">Compare</span>
+                        </button>
+                        <button class="nav-btn" data-tab="approve">
+                            <span class="nav-icon">✅</span>
+                            <span class="nav-label">Approve</span>
+                        </button>
+                        <button class="nav-btn" data-tab="settings">
+                            <span class="nav-icon">⚙️</span>
+                            <span class="nav-label">Settings</span>
+                        </button>
+                    </nav>
+
+                    <div class="sidebar-info">
+                        <div class="info-item">
+                            <span class="info-label">Baselines</span>
+                            <span class="info-value" id="baselines-count">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Current</span>
+                            <span class="info-value" id="current-count">-</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Content Area -->
+                <div class="content">
+                    <!-- Explore Tab -->
+                    <section class="tab-content active" id="tab-explore">
+                        <div class="tab-header">
+                            <h2>🌐 Explore & Capture</h2>
+                            <p>Auto-discover pages and capture screenshots</p>
+                        </div>
+
+                        <form class="form" id="explore-form">
+                            <div class="form-row">
+                                <div class="form-group flex-grow">
+                                    <label for="explore-url">Start URL</label>
+                                    <input type="url" id="explore-url" placeholder="http://localhost:4200" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="explore-depth">Max Depth</label>
+                                    <input type="number" id="explore-depth" value="3" min="1" max="10">
+                                </div>
+                                <div class="form-group">
+                                    <label for="explore-pages">Max Pages</label>
+                                    <input type="number" id="explore-pages" value="30" min="1" max="200">
+                                </div>
+                                <div class="form-group">
+                                    <label for="explore-viewport">Viewport</label>
+                                    <select id="explore-viewport">
+                                        <option value="1920x1080">Desktop (1920x1080)</option>
+                                        <option value="1366x768">Laptop (1366x768)</option>
+                                        <option value="768x1024">Tablet (768x1024)</option>
+                                        <option value="375x667">Mobile (375x667)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="explore-baseline" checked>
+                                        <span>Save as baseline</span>
+                                    </label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="explore-headless" checked>
+                                        <span>Headless mode</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <details class="auth-section">
+                                <summary>🔐 Authentication (optional)</summary>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="explore-username">Username / Email</label>
+                                        <input type="text" id="explore-username" placeholder="user@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="explore-password">Password</label>
+                                        <input type="password" id="explore-password" placeholder="••••••••">
+                                    </div>
+                                </div>
+                            </details>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="explore-btn">
+                                    <span class="btn-icon">🚀</span>
+                                    Start Exploration
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="results-section" id="explore-results" style="display: none;">
+                            <h3>Exploration Results</h3>
+                            <div class="results-summary" id="explore-summary"></div>
+                            <div class="results-list" id="explore-list"></div>
+                        </div>
+                    </section>
+
+                    <!-- Compare Tab -->
+                    <section class="tab-content" id="tab-compare">
+                        <div class="tab-header">
+                            <h2>⚖️ Compare Screenshots</h2>
+                            <p>Detect visual differences between baseline and current</p>
+                        </div>
+
+                        <form class="form" id="compare-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="compare-threshold">Failure Threshold (%)</label>
+                                    <input type="number" id="compare-threshold" value="0.1" min="0" max="100"
+                                        step="0.1">
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="compare-btn">
+                                    <span class="btn-icon">🔍</span>
+                                    Run Comparison
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="open-report-btn">
+                                    <span class="btn-icon">📊</span>
+                                    Open Report
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="results-section" id="compare-results" style="display: none;">
+                            <h3>Comparison Results</h3>
+                            <div class="results-summary" id="compare-summary"></div>
+                            <div class="results-grid" id="compare-grid"></div>
+                        </div>
+                    </section>
+
+                    <!-- Approve Tab -->
+                    <section class="tab-content" id="tab-approve">
+                        <div class="tab-header">
+                            <h2>✅ Approve Changes</h2>
+                            <p>Promote current screenshots to baseline</p>
+                        </div>
+
+                        <form class="form" id="approve-form">
+                            <div class="form-row">
+                                <div class="form-group checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="approve-clean">
+                                        <span>Clean up after approval</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success" id="approve-btn">
+                                    <span class="btn-icon">✓</span>
+                                    Approve All
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="open-baselines-btn">
+                                    <span class="btn-icon">📁</span>
+                                    Open Baselines Folder
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="results-section" id="approve-results" style="display: none;">
+                            <h3>Approval Results</h3>
+                            <div class="results-summary" id="approve-summary"></div>
+                            <div class="results-list" id="approve-list"></div>
+                        </div>
+                    </section>
+
+                    <!-- Settings Tab -->
+                    <section class="tab-content" id="tab-settings">
+                        <div class="tab-header">
+                            <h2>⚙️ Configuration</h2>
+                            <p>Current project settings from argus.config.ts</p>
+                        </div>
+
+                        <div class="config-display" id="config-display">
+                            <p class="loading">Loading configuration...</p>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="open-config-btn">
+                                <span class="btn-icon">📝</span>
+                                Open Config File
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="refresh-config-btn">
+                                <span class="btn-icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <!-- Footer / Log Area -->
+            <footer class="footer">
+                <div class="log-area" id="log-area">
+                    <div class="log-entry log-info">Welcome to Argus GUI</div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Progress Overlay -->
+        <div class="overlay" id="progress-overlay" style="display: none;">
+            <div class="progress-modal">
+                <div class="progress-spinner"></div>
+                <h3 id="progress-title">Processing...</h3>
+                <p id="progress-message">Please wait</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="views://main/index.js" type="module"></script>
+    </body>
+
+</html>

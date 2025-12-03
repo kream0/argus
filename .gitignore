@@ -31,3 +31,12 @@ npm-debug.log*
 
 # TypeScript cache
 *.tsbuildinfo
+
+# Argus - Visual Regression Testing
+.argus/current/
+.argus/diffs/
+.argus/report/
+
+# GUI (Electrobun)
+gui/build/
+gui/node_modules/

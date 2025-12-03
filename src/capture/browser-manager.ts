@@ -73,20 +73,40 @@ export class BrowserManager {
      */
     async launch(): Promise<Browser> {
         if (this.browser) {
+            console.log('[BrowserManager] Using existing browser instance');
             return this.browser;
         }
 
-        this.browser = await this.browserType.launch({
-            headless: this.headless,
-        });
+        console.log('[BrowserManager] Launching browser (headless:', this.headless, ')...');
 
-        return this.browser;
+        // Try different browser channels in order of preference
+        const channels = ['msedge', 'chrome', undefined]; // undefined = bundled chromium
+
+        for (const channel of channels) {
+            try {
+                console.log(`[BrowserManager] Trying channel: ${channel ?? 'bundled chromium'}...`);
+                this.browser = await this.browserType.launch({
+                    headless: this.headless,
+                    timeout: 60000,
+                    channel,
+                    args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
+                });
+                console.log('[BrowserManager] Browser launched successfully');
+                return this.browser;
+            } catch (err) {
+                const msg = err instanceof Error ? err.message : String(err);
+                console.log(`[BrowserManager] Channel ${channel ?? 'bundled'} failed: ${msg.slice(0, 100)}...`);
+            }
+        }
+
+        throw new Error('Failed to launch any browser. Please ensure Chrome, Edge, or run "bunx playwright install chromium"');
     }
 
     /**
      * Create a new browser context with the specified options
      */
     async createContext(options: ContextOptions): Promise<BrowserContext> {
+        console.log('[BrowserManager] Creating context with viewport:', options.viewport);
         const browser = await this.launch();
 
         const context = await browser.newContext({
@@ -185,9 +205,9 @@ export async function saveAuthState(
 /**
  * Create a browser manager from Argus config
  */
-export function createBrowserManager(config: ResolvedArgusConfig): BrowserManager {
+export function createBrowserManager(config: ResolvedArgusConfig, headless: boolean = true): BrowserManager {
     return new BrowserManager({
         browser: config.browser,
-        headless: true,
+        headless,
     });
 }

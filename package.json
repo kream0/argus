@@ -19,7 +19,11 @@
         "lint:fix": "eslint src --ext .ts --fix",
         "format": "prettier --write \"src/**/*.ts\"",
         "typecheck": "bun x tsc --noEmit",
-        "clean": "rm -rf dist"
+        "clean": "rm -rf dist",
+        "gui:install": "cd gui && bun install",
+        "gui:dev": "cd gui && bun run build:dev && electrobun dev",
+        "gui:build": "cd gui && bun run build:prod",
+        "gui": "cd gui && bun start"
     },
     "keywords": [
         "visual-regression",
@@ -39,6 +43,7 @@
         "pixelmatch": "^6.0.0",
         "playwright": "^1.49.0",
         "pngjs": "^7.0.0",
+        "puppeteer-core": "^24.32.0",
         "zod": "^3.23.8"
     },
     "devDependencies": {
